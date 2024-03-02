@@ -11,7 +11,7 @@
 * Draft a Technical Design Document based on user requirements
 * Create working prototypes 
 * Database modeling using ORD’s and noSQL data structures
-* Perform pymongo queries on MongoDB dada
+* Perform pymongo queries on MongoDB data
 * Create a working Python console application 
 
 ## How to use What-a-book console application
