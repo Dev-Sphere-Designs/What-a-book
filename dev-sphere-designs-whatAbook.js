@@ -34,11 +34,13 @@ db.customers.aggregate([
 // add books to customer's wishlist
 db.customers.aggregate([
     {
+        //Find customer document
         $match: {
             username: "username"
         }
     },
     {
+        //Join collections
         $lookup: {
             from: "books",
             localField: "wish_list.book_name",
@@ -47,8 +49,9 @@ db.customers.aggregate([
         }
     },
     {
+        //Having some issues here
         $merge: {
-            
+
         }
     }
 ])
