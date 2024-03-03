@@ -12,45 +12,57 @@
 db.books.find()
 
 // display book collection by genre
-db.books.aggregate([
-    { $sort: { genre: 1 }}
-])
+db.books.aggregate([{
+    $sort: {
+        genre: 1
+    }
+}])
 
 // display book collection by author
-db.books.aggregate([
-    { $sort: { author: 1 }}
-])
+db.books.aggregate([{
+    $sort: {
+        author: 1
+    }
+}])
 
 // display book collection by bookId
-db.books.aggregate([
-    { $sort: { bookId: 1 }}
-])
+db.books.aggregate([{
+    $sort: {
+        bookId: 1
+    }
+}])
 
 // display wishlist by customerId
-db.customers.aggregate([
-    { $sort: { username: 1}}
-])
+db.customers.aggregate([{
+    $sort: {
+        username: 1
+    }
+}])
+
+
+let book = db.books.findOne({_id: ObjectId('65e23919fe0e7fb6b77bc569')});
+let user = db.customers.findOne({"username": "oliviaD21"});
 
 // add books to customer's wishlist
-db.customers.aggregate([
-    {
-        $match: {
-            username: "username"
-        }
-    },
-    {
-        $lookup: {
-            from: "books",
-            localField: "wish_list.book_name",
-            foreignField: "book_name",
-            as: "book_docs"
-        }
-    },
-    {
-        $merge: {
-            
+db.customers.updateOne({
+    "username": user.username
+}, {
+    $push: {
+        wish_list: 
+        {
+           book
         }
     }
-])
+});
 
 // remove book from customer's wishlist
+db.customers.updateOne({
+    "username": user.username
+}, {
+    $pull: {
+        wish_list: 
+        {
+           book
+        }
+    }
+});
