@@ -26,9 +26,9 @@ client = MongoClient("mongodb+srv://web335_admin:s3cret@whatabookdb.ff1ouoz.mong
 db = client['whatABookDB']
 
 # Display a list of books. Format the output so it is easy to read.
-# print("Complete Book List: ")
-# for books in db.books.find():
-#   print(json.dumps(books, indent=3, default=str))
+print("Complete Book List: ")
+for books in db.books.find():
+  print(json.dumps(books, indent=3, default=str))
   
 # Display a list of books by Genre. For this requirement, supply the user with a list of genre choices 
 # and display the appropriate books based on their selection
