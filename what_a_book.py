@@ -47,6 +47,17 @@ def display_by_genre():
 # 3. Write a query to display a wishlist by customerId.
 # For this requirement, prompt the user to enter a customerId (c1007, c1008, or c1009) and display the appropriate wishlist.
 # Add basic error handling to account for an invalid customerId 
+def display_customer_wishlist():
+    cid = input("Enter your username: ")
+
+    user = db.customers.find({"username": cid}, {"_id": 0, "wish_list": 1})
+
+    # the first part of this isn't working properly
+    if user is None:
+      print("Invalid username. Please try again")
+    else:
+      for wish_list in user:
+        pprint.pprint(wish_list)
 
 # 4. Write a query to add a book to a customer’s wishlist.
 
@@ -54,8 +65,25 @@ def display_by_genre():
 
 # start mainline here
 def main():
-  
-  display_book_collection()
-  display_by_genre()
+  print("Welcome to WhatABook. Please select from the following options:")
+  print("1: Display all books")
+  print("2: Search books by genre")
+  print("3: Find my wishlist")
+  print("4: Add a book to my wishlist")
+  print("5: Remove a book from my wishlist")
+
+  choice = int(input("Please enter the number of your option: "))
+
+  if choice == 1:
+    print("Option 1 selected")
+    display_book_collection()
+  elif choice == 2:
+    print("Option 2 selected")
+    display_by_genre()
+  elif choice == 3:
+    print("Option 3 selected")
+    display_customer_wishlist()
+  else:
+    print("Invalid option")
   
 main()
