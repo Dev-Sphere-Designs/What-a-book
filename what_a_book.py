@@ -8,7 +8,6 @@
 # Code sources from Python Guide, courtesy of Professor Krasso
 #
 
-
 #import MongoClient
 from pymongo import MongoClient
 import certifi
@@ -35,7 +34,6 @@ def display_book_collection():
   
 # 2. Display a list of books by Genre. For this requirement, supply the user with a list of genre choices 
 # and display the appropriate books based on their selection
-# Want to figure out how to do search with $or since some genres in collection have two keywords ('Action and Adventure', etc) 
 
 def display_by_genre():
   genre = input("Enter a Genre (e.g., 'Fiction', 'Fantasy', 'Action and Adventure'): ")
