@@ -15,3 +15,13 @@
 * Create a working Python console application 
 
 ## How to use What-a-book console application
+### Application prerequisites:
+* Installation of Python (Guide here: https://wiki.python.org/moin/BeginnersGuide/Download)
+* Installation of pymongo Python package (Guide here: https://pypi.org/project/pymongo/)
+* Installation of certifi Python package (Guide here: https://pypi.org/project/certifi/)
+
+After installing Python and these packages, you should be able to run the application within a Command Line Interface (or using the run function within VSCode's tools).
+
+If you wish to select other options within the interface, you will need to restart the application. 
+
+Thank you for using What-A-Book!
