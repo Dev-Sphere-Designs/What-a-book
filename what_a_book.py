@@ -58,9 +58,57 @@ def display_customer_wishlist():
         pprint.pprint(wish_list)
 
 # 4. Write a query to add a book to a customer’s wishlist.
+def add_book_to_wishlist():
+
+    username = input("Enter your username: ")
+    user = db.customers.find_one({"username": username}) # sophiaL10
+    
+    if user is None:
+        print("Invalid username. Please try again.")
+        return 
+    
+    book_title = input("Enter Book Title you would like to add: ") # The Night Circus, The Alchemist 
+    book = db.books.find_one({"book_name": {"$regex": f'^{book_title}$', "$options": "i"}})
+    
+    if book is None:
+        print("Invalid Book Title. Please try again.")
+        return 
+
+    exists = exists = db.customers.find_one({"username": username, "wish_list": {"$elemMatch": {"book_name": {"$regex": f'^{book_title}$', "$options": "i"}}}})
+    
+    if exists:
+      print(book_title, "already exists in wish list")
+    
+    else:
+      db.customers.update_one({"username": username}, {'$push': {'wish_list': book}})
+      print(book_title, "was added to wishlist")
+      user = db.customers.find_one({"username": username})
+      pprint.pprint(user['wish_list'])
+  
 
 # 5. Write a query to remove a book from a customer’s wishlist. 
+def remove_book_from_wishlist():
 
+    username = input("Enter your username: ")
+    
+    user = db.customers.find_one({"username": username}) # sophiaL10
+    if user is None:
+        print("Invalid username. Please try again.")
+        return 
+    
+    book_title = input("Enter Book Title you would like to remove: ") # The Night Circus
+    book = db.books.find_one({"book_name": {"$regex": f'^{book_title}$', "$options": "i"}})
+    
+    if book is None:
+        print("Invalid Book Title. Please try again.")
+        return 
+    else:
+      db.customers.update_one({"username": username}, {'$pull': {'wish_list': book}})
+      print(book_title, "was removed from wish list")
+      user = db.customers.find_one({"username": username})
+      pprint.pprint(user['wish_list'])
+      return
+    
 # start mainline here
 def main():
   print("Welcome to WhatABook. Please select from the following options:")
@@ -81,7 +129,12 @@ def main():
   elif choice == 3:
     print("Option 3 selected")
     display_customer_wishlist()
+  elif choice == 4:
+    print("Option 4 selected")
+    add_book_to_wishlist()
+  elif choice == 5:
+    print("option 5 selected")
+    remove_book_from_wishlist()
   else:
     print("Invalid option")
-  
 main()
